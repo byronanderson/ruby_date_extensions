@@ -1,9 +1,11 @@
 require './lib/date_extensions'
 describe Month do
   subject { Month.new(2, 2012) }
-  it "should be equal to another thing with the same month number and year" do
-    subject.should == Month.new(2, 2012)
-  end
+
+  it { should == Month.new(2, 2012) }
+  its(:to_s) { should == "February 2012" }
+  its(:start_date) { should == Date.new(2012, 2, 1) }
+  its(:end_date)   { should == Date.new(2012, 2, 29) }
 
   it "should be able to be aggregated by" do
     first = Date.new(2012, 1, 1)
@@ -14,13 +16,6 @@ describe Month do
     }
     by_month.should == expected
   end
-
-  it "should have a nice string conversion" do
-    subject.to_s.should == "February 2012"
-  end
-
-  specify { subject.start_date.should == Date.new(2012, 2, 1) }
-  specify { subject.end_date.should == Date.new(2012, 2, 29) }
 
   it "should be case equal if the date is within the date range" do
     date = Date.new(2012, 2, 3)
